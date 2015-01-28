@@ -1,0 +1,26 @@
+#!/bin/bash
+# Runs on OSX 10.10 and tested on
+# GNU bash, version 3.2.53(1)-release (x86_64-apple-darwin14)
+# Copyright (C) 2007 Free Software Foundation, Inc.
+# To run: ./md5cmp <file> <hash>
+
+if [[ $# -eq 0 ]] ; then
+    echo "Need to specify file to check and checksum"
+    exit 1
+fi
+
+if [[ $# -eq 1 ]] ; then
+    echo "Need to specify file to check and checksum"
+    exit 1
+fi
+
+OUTPUT="$(md5 $1)" # in lowercase
+
+val=$(echo "$2" | awk '{print tolower($0)}') # make lowercase
+
+if [[ $OUTPUT == *"$val" ]]
+then
+ echo "Hashes match.";
+else
+ echo "ERROR: Hashes do not match.";	
+fi
